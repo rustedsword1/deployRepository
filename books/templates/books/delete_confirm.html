@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}削除確認{% endblock %}
+{% block header %}書籍の削除確認{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">本当に削除しますか？</h4>
+    <p>「<strong>{{ book.title }}</strong>」を削除すると、元に戻せません。</p>
+  </div>
+
+  <form method="post" class="d-flex gap-2">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">削除する</button>
+    <a href="{% url 'edit_book' book.pk %}" class="btn btn-secondary">キャンセル</a>
+  </form>
+</div>
+{% endblock %}
+

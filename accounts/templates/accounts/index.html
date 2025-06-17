@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="text-center mt-5">
+    <h2 class="mb-4">ようこそ</h2>
+    <p class="mb-4">ログインまたは新規登録をしてください。</p>
+    
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 me-sm-3">ログイン</a>
+      <a href="{% url 'signup' %}" class="btn btn-outline-secondary btn-lg px-4">新規ユーザー登録</a>
+    </div>
+  </div>
+{% endblock %}

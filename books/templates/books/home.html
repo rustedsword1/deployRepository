@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}ホーム画面{% endblock %}
+{% block header %}ホーム画面{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">書籍一覧</h2>
+  <p class="text-muted">{{ request.user.username }} さん、ようこそ！</p>
+
+  <!-- フィルター＆検索フォーム -->
+  <form method="get" class="row g-2 align-items-end mb-4">
+    <div class="col-md-3">
+      <label class="form-label">読書状況</label>
+      <select name="status" class="form-select">
+        <option value="">すべて表示</option>
+        <option value="reading" {% if selected_status == 'reading' %}selected{% endif %}>読書中</option>
+        <option value="interested" {% if selected_status == 'interested' %}selected{% endif %}>興味がある</option>
+        <option value="finished" {% if selected_status == 'finished' %}selected{% endif %}>読了</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">著者名</label>
+      <input type="text" name="q" class="form-control" placeholder="著者名で検索" value="{{ search_query }}">
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">おすすめ度</label>
+      <select name="rating" class="form-select">
+        <option value="">すべて</option>
+        {% for i in "12345" %}
+          <option value="{{ i }}" {% if rating_filter == i %}selected{% endif %}>{{ i }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary w-100">絞り込む</button>
+    </div>
+  </form>
+
+  <hr>
+
+  <!-- 書籍一覧 -->
+  {% if books %}
+    <ul class="list-group mb-4">
+      {% for book in books %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a>
+          <span class="badge bg-secondary">{{ book.get_status_display }} / ★{{ book.rating }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info">登録された書籍はありません。</div>
+  {% endif %}
+
+  <!-- アクションボタン -->
+  <div class="d-flex flex-wrap gap-2">
+    <a href="{% url 'add_book' %}" class="btn btn-success">書籍情報登録</a>
+    <a href="{% url 'user_info' %}" class="btn btn-outline-primary">ユーザー情報</a>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">ログアウト</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
