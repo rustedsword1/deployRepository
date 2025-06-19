@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm
 from django.contrib import messages
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 def index(request):
@@ -21,7 +22,7 @@ def login_view(request):
         return redirect('home') 
     
     if request.method == 'POST':
-        form = CustomLoginForm(request, data=request.POST)
+        form = CustomLoginForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('home')
@@ -31,12 +32,12 @@ def login_view(request):
 
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
 def logout_view(request):
@@ -65,7 +66,7 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # パスワード変更後もログイン状態を維持
+            update_session_auth_hash(request, user)  
             messages.success(request, 'パスワードを変更しました。')
             return redirect('user_info')
         else:
