@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}ユーザー情報編集{% endblock %}
-{% block header %}ユーザー情報編集{% endblock %}
+{% block title %}ユーザー情報編集画面{% endblock %}
+{% block header %}ユーザー情報編集画面{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -12,16 +12,15 @@
       <form method="post" class="mt-3">
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="d-flex justify-content-end">
+        
+        <div class="d-flex justify-content-end gap-2">
           <button type="submit" class="btn btn-success">保存</button>
+          <a href="{% url 'change_password' %}" class="btn btn-warning">パスワードを変更する</a>
+          <a href="{% url 'user_info' %}" class="btn btn-secondary">ユーザー情報に戻る</a>
         </div>
       </form>
-
-      <div class="mt-3 d-flex justify-content-end gap-2">
-        <a href="{% url 'change_password' %}" class="btn btn-warning">パスワードを変更する</a>
-        <a href="{% url 'user_info' %}" class="btn btn-secondary">ユーザー情報に戻る</a>
-      </div>
     </div>
   </div>
 </div>
 {% endblock %}
+
