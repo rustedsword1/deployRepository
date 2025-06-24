@@ -4,16 +4,65 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2 class="mb-3">📚 書籍情報登録</h2>
+  <h2 class="mb-4 text-center">📚 書籍情報登録</h2>
 
-  <form method="post" class="card p-4 shadow-sm">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">登録</button>
-  </form>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="post" class="card p-4 shadow-sm bg-white">
+        {% csrf_token %}
 
-  <div class="mt-3">
-    <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
-  </div>
+        <div class="mb-3">
+          <label for="{{ form.title.id_for_label }}" class="form-label">タイトル</label>
+          {{ form.title }}
+          {% if form.title.errors %}
+            <div class="text-danger small">{{ form.title.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="{{ form.author.id_for_label }}" class="form-label">著者名</label>
+          {{ form.author }}
+          {% if form.author.errors %}
+            <div class="text-danger small">{{ form.author.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="{{ form.category.id_for_label }}" class="form-label">カテゴリ</label>
+          {{ form.category }}
+          {% if form.category.errors %}
+            <div class="text-danger small">{{ form.category.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="{{ form.comment.id_for_label }}" class="form-label">コメント</label>
+          {{ form.comment }}
+          {% if form.comment.errors %}
+            <div class="text-danger small">{{ form.comment.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="{{ form.rating.id_for_label }}" class="form-label">おすすめ度（1〜5）</label>
+          {{ form.rating }}
+          {% if form.rating.errors %}
+            <div class="text-danger small">{{ form.rating.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="{{ form.status.id_for_label }}" class="form-label">読書状況</label>
+          {{ form.status }}
+          {% if form.status.errors %}
+            <div class="text-danger small">{{ form.status.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+<div class="mt-4 d-flex justify-content-end gap-2">
+  <button type="submit" class="btn btn-primary">登録</button>
+  <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
 </div>
+</form>
+
 {% endblock %}

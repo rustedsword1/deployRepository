@@ -4,26 +4,43 @@
 {% block header %}書籍情報の編集{% endblock %}
 
 {% block content %}
+<style>
+  form label {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+</style>
+
 <div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h3 class="card-title mb-4">{{ book.title }} の編集</h3>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title mb-4">{{ book.title }} の編集</h3>
 
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">保存</button>
-        <a href="{% url 'book_detail' book.pk %}" class="btn btn-secondary ms-2">キャンセル</a>
-      </form>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-end mt-3">
+              <button type="submit" class="btn btn-primary">保存</button>
+              <a href="{% url 'book_detail' book.pk %}" class="btn btn-secondary ms-2">キャンセル</a>
+            </div>
+          </form>
 
-      <hr>
+          <hr>
 
-      <form action="{% url 'delete_book' book.pk %}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">この書籍を削除</button>
-      </form>
+          <form action="{% url 'delete_book' book.pk %}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+            {% csrf_token %}
+            <div class="text-end">
+              <button type="submit" class="btn btn-danger">この書籍を削除</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>
 {% endblock %}
-

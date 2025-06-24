@@ -26,6 +26,20 @@
     </div>
 
     <div class="col-md-3">
+      <label class="form-label">カテゴリー</label>
+      <select name="category" class="form-select">
+        <option value="">すべて</option>
+        <option value="novel" {% if category_filter == 'novel' %}selected{% endif %}>小説</option>
+        <option value="business" {% if category_filter == 'business' %}selected{% endif %}>ビジネス</option>
+        <option value="science" {% if category_filter == 'science' %}selected{% endif %}>科学</option>
+        <option value="history" {% if category_filter == 'history' %}selected{% endif %}>歴史</option>
+        <option value="comic" {% if category_filter == 'comic' %}selected{% endif %}>漫画</option>
+        <option value="essay" {% if category_filter == 'essay' %}selected{% endif %}>エッセイ</option>
+        <option value="other" {% if category_filter == 'other' %}selected{% endif %}>その他</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
       <label class="form-label">おすすめ度</label>
       <select name="rating" class="form-select">
         <option value="">すべて</option>
@@ -35,8 +49,8 @@
       </select>
     </div>
 
-    <div class="col-md-3">
-      <button type="submit" class="btn btn-primary w-100">絞り込む</button>
+    <div class="col-md-12 text-end">
+      <button type="submit" class="btn btn-primary">絞り込む</button>
     </div>
   </form>
 
@@ -57,7 +71,7 @@
   {% endif %}
 
   <!-- アクションボタン -->
-  <div class="d-flex flex-wrap gap-2">
+  <div class="text-end d-flex justify-content-end gap-2 flex-wrap">
     <a href="{% url 'add_book' %}" class="btn btn-success">書籍情報登録</a>
     <a href="{% url 'user_info' %}" class="btn btn-outline-primary">ユーザー情報</a>
     <form method="post" action="{% url 'logout' %}">

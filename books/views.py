@@ -10,7 +10,7 @@ def home(request):
     status_filter = request.GET.get('status', 'all')  # ステータスフィルター
     author_query = request.GET.get('q', '')           # 著者名検索クエリ（空文字で初期化）
     rating_filter = request.GET.get('rating', '')       # おすすめ度フィルター
-
+    category_filter = request.GET.get('category', '')
 
     # ユーザーの書籍をベースに
     books = Book.objects.filter(user=request.user)
@@ -26,16 +26,20 @@ def home(request):
     # 著者名検索（部分一致）
     if author_query:
         books = books.filter(author__icontains=author_query)
-
+    
+    if category_filter:
+        books = books.filter(category=category_filter)
+    
     # おすすめ度フィルター
     if rating_filter.isdigit():  # 1〜5 の数値が入力されている場合
         books = books.filter(rating=int(rating_filter))
     
     return render(request, 'books/home.html', {
         'books': books,
-        'status_filter': status_filter,
-        'author_query': author_query,
+        'selected_status': status_filter,
+        'search_query': author_query,
         'rating_filter': rating_filter,
+        'category_filter': category_filter,
     })
     
 # 書籍登録画面

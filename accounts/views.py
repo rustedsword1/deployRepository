@@ -22,7 +22,7 @@ def login_view(request):
         return redirect('home') 
     
     if request.method == 'POST':
-        form = CustomLoginForm(data=request.POST)
+        form = CustomLoginForm(request.POST)
         if form.is_valid():
             login(request, form.get_user())
             return redirect('home')
@@ -35,6 +35,7 @@ def signup_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'ユーザー登録が完了しました')
             return redirect('login')
     else:
         form = CustomUserCreationForm()

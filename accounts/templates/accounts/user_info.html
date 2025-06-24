@@ -5,20 +5,24 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h4 class="mb-0">アカウント情報</h4>
-    </div>
-    <div class="card-body">
-      <ul class="list-group list-group-flush mb-3">
-        <li class="list-group-item"><strong>ユーザー名:</strong> {{ user.username }}</li>
-        <li class="list-group-item"><strong>メールアドレス:</strong> {{ user.email }}</li>
-      </ul>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">アカウント情報</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><strong>ユーザー名:</strong> {{ user.username }}</li>
+            <li class="list-group-item"><strong>メールアドレス:</strong> {{ user.email }}</li>
+          </ul>
 
-      <div class="d-flex flex-wrap gap-2">
-        <a href="{% url 'edit_user' %}" class="btn btn-primary">ユーザー情報を編集する</a>
-        <a href="{% url 'change_password' %}" class="btn btn-warning">パスワードを変更する</a>
-        <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+          <div class="d-flex justify-content-end gap-2">
+            <a href="{% url 'edit_user' %}" class="btn btn-primary">ユーザー情報を編集する</a>
+            <a href="{% url 'change_password' %}" class="btn btn-warning">パスワードを変更する</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

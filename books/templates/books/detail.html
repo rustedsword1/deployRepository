@@ -5,19 +5,25 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h3 class="card-title">{{ book.title }}</h3>
-      <p class="card-text"><strong>著者名:</strong> {{ book.author }}</p>
-      <p class="card-text"><strong>カテゴリー:</strong> {{ book.category }}</p>
-      <p class="card-text"><strong>コメント:</strong> {{ book.comment }}</p>
-      <p class="card-text"><strong>おすすめ度:</strong> {{ book.rating }} / 5</p>
-      <p class="card-text"><strong>読書状況:</strong> {{ book.get_status_display }}</p>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">{{ book.title }}</h3>
+          
+          <p class="card-text"><strong>著者名:</strong> {{ book.author }}</p>
+          <p class="card-text"><strong>カテゴリー:</strong> {{ book.category }}</p>
+          <p class="card-text"><strong>コメント:</strong> {{ book.comment }}</p>
+          <p class="card-text"><strong>おすすめ度:</strong> {{ book.rating }} / 5</p>
+          <p class="card-text"><strong>読書状況:</strong> {{ book.get_status_display }}</p>
 
-      <a href="{% url 'edit_book' book.pk %}" class="btn btn-outline-primary me-2">編集する</a>
-      <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+          <div class="text-end mt-4">
+            <a href="{% url 'edit_book' book.pk %}" class="btn btn-outline-primary me-2">編集する</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary">ホームに戻る</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 {% endblock %}
-
