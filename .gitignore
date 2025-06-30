@@ -1,3 +1,24 @@
+<<<<<<< HEAD
+=======
+nano .gitignore
+
+        staticfiles/admin/js/vendor/select2/i18n/eu.js
+        staticfiles/admin/js/vendor/select2/i18n/fa.js
+        staticfiles/admin/js/vendor/select2/i18n/fi.js
+        staticfiles/admin/js/vendor/select2/i18n/fr.js
+        staticfiles/admin/js/vendor/select2/i18n/gl.js
+        staticfiles/admin/js/vendor/select2/i18n/he.js
+        staticfiles/admin/js/vendor/select2/i18n/hi.js
+        staticfiles/admin/js/vendor/select2/i18n/hr.js
+        staticfiles/admin/js/vendor/select2/i18n/hsb.js
+        staticfiles/admin/js/vendor/select2/i18n/hu.js
+        staticfiles/admin/js/vendor/select2/i18n/hy.js
+        staticfiles/admin/js/vendor/select2/i18n/id.js
+        staticfiles/admin/js/vendor/select2/i18n/is.js
+  GNU nano 6.2                        .gitignore *                                
+nano .gitignore
+nano .gitignore
+>>>>>>> ab1aa1d (Ignore pycache, pyc, db.sqlite3 and staticfiles)
 __pycache__/
 *.pyc
 db.sqlite3
