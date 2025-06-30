@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&t!!(c5o)#7+to+#7p9lkgm$=v)olg71gttbd5^619mwk=06b8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rustedsword1.pythonanywhere.com']
 
 
 # Application definition
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'bookmanager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'books','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
