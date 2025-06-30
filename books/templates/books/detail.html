@@ -12,7 +12,7 @@
           <h3 class="card-title mb-4 text-center">{{ book.title }}</h3>
           
           <p class="card-text"><strong>著者名:</strong> {{ book.author }}</p>
-          <p class="card-text"><strong>カテゴリー:</strong> {{ book.category }}</p>
+          <p class="card-text"><strong>カテゴリー:</strong> {{ book.get_category_display }}</p>
           <p class="card-text"><strong>コメント:</strong> {{ book.comment }}</p>
           <p class="card-text"><strong>おすすめ度:</strong> {{ book.rating }} / 5</p>
           <p class="card-text"><strong>読書状況:</strong> {{ book.get_status_display }}</p>
