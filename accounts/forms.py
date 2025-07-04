@@ -1,11 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.password_validation import password_validators_help_texts
+from django.contrib.auth.models import User  # 標準ユーザーモデルを使用
+
 
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(
@@ -41,12 +42,11 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class CustomLoginForm(forms.Form):
-    email = forms.EmailField(
-        label="メールアドレス",
-        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+    username = forms.CharField(
+        label="ユーザー名",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
         error_messages={
-            'required': 'メールアドレスを入力してください。',
-            'invalid': '有効なメールアドレスを入力してください。',
+            'required': 'ユーザー名を入力してください。',
         },
     )
     password = forms.CharField(
@@ -59,19 +59,13 @@ class CustomLoginForm(forms.Form):
     )
 
     def clean(self):
-        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
 
-        if email and password:
-            try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
-                raise forms.ValidationError(_("メールアドレスまたはパスワードが正しくありません。"))
-
-            self.user_cache = authenticate(username=user.username, password=password)
-
+        if username and password:
+            self.user_cache = authenticate(username=username, password=password)
             if self.user_cache is None:
-                raise forms.ValidationError(_("パスワードが正しくありません。"))
+                raise forms.ValidationError(_("ユーザー名またはパスワードが正しくありません。"))
             elif not self.user_cache.is_active:
                 raise forms.ValidationError(_("このアカウントは無効です。"))
 
@@ -79,6 +73,7 @@ class CustomLoginForm(forms.Form):
 
     def get_user(self):
         return getattr(self, 'user_cache', None)
+
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
@@ -115,11 +110,9 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Bootstrapスタイルをすべてのフィールドに一括で適用
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-        # パスワードのヘルプテキスト表示（改行付き）
         self.fields['password1'].help_text = '<br>'.join(password_validators_help_texts())
 
     def clean_username(self):
@@ -127,6 +120,12 @@ class CustomUserCreationForm(UserCreationForm):
         if len(username) > 20:
             raise ValidationError(_('ユーザー名は20文字以内で入力してください。'))
         return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError(_('このメールアドレスはすでに使用されています。'))
+        return email
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -142,3 +141,4 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+

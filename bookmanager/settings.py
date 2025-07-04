@@ -131,4 +131,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/home/'  # ログイン後に遷移するURL
-
